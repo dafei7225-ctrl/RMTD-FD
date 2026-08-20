@@ -1,0 +1,67 @@
+# RMTD-FD requirements
+# Recommended Python: 3.10 or 3.11
+#
+# This file covers the Python packages directly required by the generated
+# RMTD-FD preprocessing / teacher-pretraining / distillation / evaluation /
+# online-inference scripts, plus the model-side packages normally needed by
+# UniFormer.
+#
+# CUDA note:
+# For an NVIDIA GPU (e.g. RTX 4090), it is usually better to install the
+# PyTorch + torchvision build that matches your CUDA/driver first from the
+# official PyTorch installation selector, then run:
+#     pip install -r requirements.txt
+#
+# If torch/torchvision are already installed correctly, pip will normally keep
+# a compatible installation.
+
+# ------------------------------------------------------------
+# Core numerical / deep-learning stack
+# ------------------------------------------------------------
+torch>=2.2,<2.7
+torchvision>=0.17,<0.22
+numpy>=1.24,<2.1
+
+# ------------------------------------------------------------
+# Video/image preprocessing and online inference
+# Used by:
+#   preprocess_upfall_rmtd_fd.py
+#   preprocess_urfall_rmtd_fd.py
+#   inference_online_alarm_rmtd_fd.py
+# ------------------------------------------------------------
+opencv-python>=4.8,<5
+
+# ------------------------------------------------------------
+# Human ROI generation for the Human-Centered Teacher (T3)
+# Paper: COCO-pretrained YOLOv8n, person class, confidence=0.25
+# Used by the two preprocessing scripts.
+# ------------------------------------------------------------
+ultralytics>=8.2,<9
+
+# ------------------------------------------------------------
+# UniFormer model-side dependencies
+# The official Sense-X UniFormer implementation imports timm;
+# its video-classification stack is based on SlowFast/fvcore.
+# ------------------------------------------------------------
+timm>=0.9,<1.1
+fvcore>=0.1.5
+iopath>=0.1.10
+
+# ------------------------------------------------------------
+# Common lightweight configuration/runtime dependencies used by
+# UniFormer/SlowFast-style projects and Ultralytics.
+# ------------------------------------------------------------
+PyYAML>=6.0
+tqdm>=4.66
+
+# ------------------------------------------------------------
+# Optional packages
+# Uncomment only if your local UniFormer/SlowFast code explicitly imports them.
+# The RMTD-FD files generated in this conversation do NOT directly require them.
+# ------------------------------------------------------------
+# av>=10
+# simplejson>=3.19
+# psutil>=5.9
+# scikit-learn>=1.3
+# tensorboard>=2.14
+# einops>=0.7
